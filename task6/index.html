@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My TodoApp</title>
+  </head>
+
+  <body>
+
+    <form id="frm" onsubmit="return false">
+        <input type="text" id="inputText" />
+        <input type="submit" value="Add item" onclick="dothis()"/>
+    </form>
+
+    <ul id="myList">   </ul>
+
+    <script>
+
+      //function tododitem
+      var TodoItem = function(caption){
+        this.caption = caption;
+        this.isCompleted = false;
+        this.toggle = function(){
+          this.isCompleted = !this.isCompleted;
+        }
+      };
+
+      //function TodoApp
+      var TodoApp = function() {
+        this.todoCollection = [];
+        this.userInput = '';
+        this.addItem = function(caption) {
+          var newTodoItem = new TodoItem(caption);
+          this.todoCollection.push(newTodoItem);
+        }
+
+        this.render = function() {
+        var ul = document.getElementById('myList');
+        for(var i in this.todoCollection) {
+            var todoItem = this.todoCollection[i];
+            var li = buildLiUI(todoItem.caption, todoItem.isCompleted, i);
+            ul.appendChild(li);
+        };
+      }
+    }
+
+      // function buildLiUI
+      function buildLiUI(caption, isCompleted, index) {
+
+        //remove tag
+        var deleteBtn = document.createElement('button');
+        deleteBtn.setAttribute('type', 'button');
+        deleteBtn.appendChild(document.createTextNode('Delete'));
+
+        deleteBtn.onclick = function(e) {
+          var targetLi = e.target.parentNode;
+    			targetLi.parentNode.removeChild(targetLi);
+          TodoAppObj.render();
+        }
+
+        //checkbox
+        var checkBox = document.createElement('input');
+        checkBox.setAttribute('type', 'checkbox');
+        checkBox.onclick =(function(e) {
+    			var self = e.target;
+    			var status = self.checked;
+    			var li = self.parentNode;
+    			if(status)
+    				li.setAttribute('class', 'completed')
+    			else
+    				li.setAttribute('class', '')
+          TodoAppObj.render();
+
+    		});
+
+        var li = document.createElement('li');
+        var textNode = document.createTextNode(caption);
+
+        li.appendChild(checkBox);
+        li.appendChild(textNode);
+        li.appendChild(deleteBtn);
+
+        return li;
+      }
+
+function dothis() {
+
+  var TodoAppObj = new TodoApp();
+  var cap = document.getElementById('inputText').value;
+  TodoAppObj.addItem(cap);
+  TodoAppObj.render();
+}
+
+  </script>
+
+  <style>
+    .completed {
+      text-decoration: line-through;
+    }
+  </style>
+
+  </body>
+
+</html>

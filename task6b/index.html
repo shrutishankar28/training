@@ -1,0 +1,39 @@
+<html>
+
+<head>
+  <title> MyTodoApp </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+<div class="container">
+<div class="jumbotron">
+  <h1>My First Todo App</h1>
+</div>
+  <p>Enter Task:</p>
+
+  <form id="formid" onsubmit="return false">
+    <input type="text" id="inp_task"/><br/>
+    <button type="submit" class="btn btn-primary">ADD</button>
+    </div>
+  </form>
+
+  <div class="well">
+    <div class="jumbotron">
+  <ul id="tdlist"></ul>
+</div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="myscript.js"></script>
+  <script src="ui.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My TodoApp</title>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="http://eg.com/favicon.png"/>
+   </head>
+  <body>
+
+    <h1 style="color: red">My Todo App</h1>
+
+    <form id="frm">
+      <input type="text" id="inputText" />
+      <input type="submit" value="Add item" />
+    </form>
+
+    <ul id="myList">
+    </ul>
+
+    <script>
+
+      document.getElementById('frm').onsubmit = function(e) {
+
+        e.preventDefault();
+
+        var inputText = document.getElementById('inputText').value;
+
+        //document.getElementById('myList').innerHTML += '<li>'+inputText+'</li>';
+
+        var ul = document.getElementById('myList');
+
+        var li = document.createElement('li');
+        var textNode = document.createTextNode(inputText);
+
+        var deleteBtn = document.createElement('button');
+        deleteBtn.setAttribute('type', 'button');
+        deleteBtn.appendChild(document.createTextNode('Delete'));
+
+        deleteBtn.onclick = function(e) {
+          var targetDelete = e.target.parentNode;
+          targetDelete.parentNode.removeChild(targetDelete);
+        }
+
+        var checkBox = document.createElement('input');
+        checkBox.setAttribute('type', 'checkbox');
+
+        checkBox.onclick = (function(e) {
+
+          var self = e.target;
+          var status = self.checked;
+
+          var li = self.parentNode;
+
+          if(status)
+            li.setAttribute('class', 'completed')
+          else
+            li.setAttribute('class', '')
+
+
+        };
+
+        li.appendChild(checkBox);
+        li.appendChild(textNode);
+        li.appendChild(deleteBtn);
+
+        ul.appendChild(li);
+
+      };
+
+    </script>
+
+    <style>
+
+    .completed {
+      text-decoration: line-through;
+    }
+
+    </style>
+
+  </body>
+</html>

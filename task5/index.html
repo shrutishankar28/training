@@ -1,0 +1,83 @@
+<html>
+<head>
+	<title>My TodoApp</title>
+ </head>
+
+<body>
+
+	Enter todo task: <input type="text" id="task"/><br/>
+	<input type="submit" onclick="dothis()" value="Submit"/></br>
+		<ul id="mylist"></ul>
+
+<script>
+	function dothis(){
+
+		//get user input
+		var tdtask = document.getElementById('task').value;
+
+		//Caption
+		var inptask= document.createTextNode(tdtask);
+
+		//Delete button
+		var removetag = document.createElement('button');
+		removetag.setAttribute('type', 'button');
+		removetag.appendChild(document.createTextNode('Delete'));
+
+		removetag.onclick = function(e) {
+			var targetLi = e.target.parentNode;
+			targetLi.parentNode.removeChild(targetLi);
+		}
+
+		//checkBox
+		var checkBox = document.createElement('input');
+		checkBox.setAttribute('type', 'checkbox');
+
+		checkBox.onclick =(function(e) {
+
+			var self = e.target;
+			var status = self.checked;
+
+			var li = self.parentNode;
+
+			if(status)
+				li.setAttribute('class', 'completed')
+			else
+				li.setAttribute('class', '')
+
+
+		});
+
+		//create li element
+		var li= document.createElement('li');
+
+		//add values
+		li.appendChild(checkBox);
+		li.appendChild(inptask);
+		li.appendChild(removetag);
+
+		//get ul
+		var ul=document.getElementById('mylist');
+
+		//append li to ul
+		ul.appendChild(li);
+
+	};
+
+
+
+</script>
+
+<style>
+.completed {
+  text-decoration: line-through;
+}
+</style>
+
+
+
+
+
+
+
+</body>
+</html>
